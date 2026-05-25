@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAM — Response Templates | Bosch Identity Team</title>
+<link rel="icon" href="https://static-00.iconduck.com/assets.00/bosch-icon-2048x2048-se8sykum.png">
+<link href="https://fonts.googleapis.com/css2?family=Bosch+Sans:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bosch-purple: #9e2896;
+  --bosch-purple-light: #f5e8f4;
+  --bosch-purple-border: rgba(158,40,150,0.25);
+  --text: #000000;
+  --text-muted: #555;
+  --text-dim: #888;
+  --border: #e0e0e0;
+  --bg: #ffffff;
+  --surface: #f7f7f7;
+  --surface2: #f0f0f0;
+  --sans: 'Bosch Sans', 'Segoe UI', Arial, sans-serif;
+  --mono: 'Courier New', monospace;
+  --radius: 6px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  padding-top: 90px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Supergrafik ── */
+.supergrafik-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 8px;
+  z-index: 1100;
+  overflow: hidden;
+}
+.supergrafik-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Header ── */
+.header {
+  position: fixed;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 2.5rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bosch-logo {
+  height: 28px;
+  width: auto;
+}
+
+.header-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+}
+
+.header-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.2px;
+}
+
+.header-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.header-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--bosch-purple);
+  border: 1.5px solid var(--bosch-purple-border);
+  border-radius: 20px;
+  padding: 3px 12px;
+  background: var(--bosch-purple-light);
+}
+
+/* ── Page title ── */
+.page-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 22px 2.5rem;
+}
+.page-header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.page-header p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Layout ── */
+.main-layout {
+  display: flex;
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 2.5rem 60px;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 110px;
+}
+
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0 4px 10px;
+}
+
+.nav-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 2px;
+}
+
+.nav-btn .indicator {
+  width: 3px;
+  height: 18px;
+  border-radius: 2px;
+  background: transparent;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.nav-btn:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.nav-btn.active {
+  background: var(--bosch-purple-light);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.nav-btn.active .indicator {
+  background: var(--bosch-purple);
+}
+
+/* ── Content Panel ── */
+.panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--bosch-purple);
+}
+
+.panel-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.panel-count {
+  font-size: 12px;
+  color: var(--text-dim);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ── Tab sections ── */
+.tab-section { display: none; }
+.tab-section.active { display: block; }
+
+/* ── Template cards ── */
+.tpl-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: white;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.tpl-card:last-child { margin-bottom: 0; }
+
+.tpl-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.11);
+  border-color: var(--bosch-purple-border);
+}
+
+.tpl-card-head {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tpl-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.copy-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bosch-purple);
+  background: var(--bosch-purple-light);
+  border: 1.5px solid var(--bosch-purple-border);
+  border-radius: var(--radius);
+  padding: 4px 14px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.3px;
+}
+
+.copy-btn:hover {
+  background: #ead5e8;
+}
+
+.copy-btn:active { transform: scale(0.96); }
+
+.copy-btn.copied {
+  color: #1a7c3e;
+  background: #e8f5ee;
+  border-color: rgba(26,124,62,0.3);
+}
+
+.tpl-body {
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #333;
+  font-family: var(--mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: white;
+}
+
+.tpl-body .placeholder {
+  color: var(--bosch-purple);
+  background: var(--bosch-purple-light);
+  border: 1px solid var(--bosch-purple-border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 12px;
+  font-family: var(--mono);
+}
+
+/* ── Subject row ── */
+.tpl-subject {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: white;
+  border-bottom: 1px solid var(--border);
+}
+
+.subject-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bosch-purple-light);
+  border: 1.5px solid var(--bosch-purple-border);
+  border-radius: 999px;
+  padding: 6px 8px 6px 16px;
+  box-shadow: 0 2px 8px rgba(158,40,150,0.1);
+}
+
+.subject-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--bosch-purple);
+  flex-shrink: 0;
+}
+
+.subject-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--bosch-purple-border);
+  flex-shrink: 0;
+}
+
+.subject-text {
+  font-size: 13px;
+  color: #333;
+  font-family: var(--sans);
+  white-space: nowrap;
+}
+
+.copy-btn-sm {
+  font-size: 11px;
+  padding: 3px 10px;
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+.hint {
+  font-size: 12px;
+  color: #666;
+  font-family: var(--sans);
+  background: #fffbf0;
+  border-left: 3px solid #f0a500;
+  padding: 9px 14px;
+  margin: 0 18px 16px;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+}
+
+/* ── EXU3 Creation template ── */
+.exu3-body {
+  font-family: var(--sans);
+  white-space: normal;
+  padding: 18px 20px;
+}
+.exu3-section-title {
+  color: var(--bosch-purple);
+  font-weight: 700;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+.exu3-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.exu3-table tr td {
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 1px solid #c8e6c9;
+}
+.exu3-key {
+  background: #4caf50;
+  color: white;
+  font-weight: 700;
+  width: 110px;
+  white-space: nowrap;
+}
+.exu3-val {
+  background: #f1f8f1;
+  color: #222;
+}
+.exu3-p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 10px;
+}
+.exu3-link {
+  color: var(--bosch-purple);
+  text-decoration: underline;
+}
+.exu3-divider {
+  font-size: 11px;
+  color: #aaa;
+  letter-spacing: 1px;
+  margin: 10px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.footer-creator {
+  background: linear-gradient(90deg, #1a1a1a 0%, #2d0a2b 50%, #1a1a1a 100%);
+  text-align: center;
+  padding: 10px 2.5rem;
+  border-top: 1px solid rgba(158,40,150,0.3);
+}
+
+.footer-creator-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  letter-spacing: 0.4px;
+}
+
+.footer-craft {
+  color: #888;
+  font-family: var(--sans);
+}
+
+.footer-heart {
+  color: var(--bosch-purple);
+  font-size: 13px;
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+.footer-author {
+  color: #e0b8df;
+  font-weight: 700;
+  font-family: var(--sans);
+  letter-spacing: 0.5px;
+}
+
+.footer-dot {
+  color: #555;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.25); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.15); }
+  56% { transform: scale(1); }
+}
+
+/* ── Footer ── */
+footer {
+  background: #333;
+  color: white;
+  padding: 1.2rem 2.5rem;
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-links a:hover { text-decoration: underline; }
+
+.footer-copyright {
+  font-size: 12px;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .main-layout { flex-direction: column; padding: 20px 1rem; }
+  .sidebar { width: 100%; position: static; }
+  .header { padding: 0 1rem; }
+  .page-header { padding: 16px 1rem; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { flex-direction: column; gap: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Supergrafik -->
+<div class="supergrafik-top">
+  <div style="width:100%; height:100%; background: linear-gradient(to right, #8b1a2e 0%, #a5243d 4%, #c0392b 8%, #c0392b 13%, #8e44ad 16%, #7d3c98 20%, #2c3e8c 25%, #1a237e 30%, #1565c0 36%, #1976d2 42%, #0288d1 48%, #0097a7 54%, #00838f 60%, #00acc1 66%, #26c6da 72%, #00bcd4 78%, #00897b 84%, #2e7d32 88%, #43a047 92%, #8bc34a 96%, #aed581 100%);"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <a href="https://www.bosch.com" target="_blank">
+      <img
+        class="bosch-logo"
+        src="https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoiYm9zY2hcL2FjY291bnRzXC9hNVwvNDAwMDA5OFwvcHJvamVjdHNcLzIyOVwvYXNzZXRzXC8xYlwvMTE0MDUxXC9mMTQyMWFiZDVhODY2MzljOGM0ZjJlM2FiZjQ3MWFlYi0xNTkwNzQ2MjY1LnN2ZyJ9:bosch:lFhI6BBD0LVPSURyRBjLLsVySpt3hxhyE95UqXOfrOY?width=160&rect=0,0,160,36&reference_width=160"
+        alt="Bosch Logo"
+      >
+    </a>
+    <div class="header-divider"></div>
+    <div>
+      <div class="header-title">BOSCH Identity Team</div>
+      <div class="header-subtitle">IAM — Response Templates</div>
+    </div>
+  </div>
+  <span class="header-badge">Internal Tool</span>
+</header>
+
+<!-- Page Header -->
+<div class="page-header">
+  <h1>Response Templates</h1>
+  <p>Select a category from the sidebar and click <strong>Copy</strong> to copy any template to clipboard.</p>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Categories</div>
+    <button class="nav-btn active" data-tab="t1"><span class="indicator"></span>User Creation</button>
+    <button class="nav-btn" data-tab="t7"><span class="indicator"></span>First Response</button>
+    <button class="nav-btn" data-tab="t2"><span class="indicator"></span>Password Reset</button>
+    <button class="nav-btn" data-tab="t3"><span class="indicator"></span>User Updation</button>
+    <button class="nav-btn" data-tab="t4"><span class="indicator"></span>User Deletion</button>
+    <button class="nav-btn" data-tab="t5"><span class="indicator"></span>Troubleshooting</button>
+    <button class="nav-btn" data-tab="t6"><span class="indicator"></span>Others</button>
+    <button class="nav-btn" data-tab="t8"><span class="indicator"></span>US Roles</button>
+    <button class="nav-btn" data-tab="t9"><span class="indicator"></span>Quick Finds</button>
+  </nav>
+
+  <!-- Panel -->
+  <div class="panel">
+    <div class="panel-header">
+      <h2 id="panel-title">User Creation</h2>
+      <span class="panel-count" id="panel-count">3 templates</span>
+    </div>
+
+    <!-- Tab 1: User Creation -->
+    <div class="tab-section active" id="t1">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">ADU Creation</span>
+          <button class="copy-btn" data-target="c-t1-1">Copy</button>
+        </div>
+        <div class="tpl-subject">
+          <div class="subject-pill">
+            <span class="subject-label">Subject</span>
+            <div class="subject-divider"></div>
+            <span class="subject-text" id="c-t1-subject">A new Admin Identity has been created</span>
+            <button class="copy-btn copy-btn-sm" data-target="c-t1-subject">Copy</button>
+          </div>
+        </div>
+        <div class="tpl-body" id="c-t1-1">Dear Customer,
+
+A new secondary identity/ Admin User has been created for you.
+Find below the UserID and the first half of the password. The second half has been sent to your manager.
+
+Username: <span class="placeholder">GOM4LIS</span>
+First part of your password: <span class="placeholder">e5onFU</span>
+
+Password
+Once you received the second half of your password, please combine it, and don't forget to change it via:
+https://rb-pwd-change.bosch.com/
+
+
+Roles &amp; Access Rights
+Additionally, all roles/ rights from the following IT application have been requested for your new identity above already:
+
+* Directory Services - Azure-AD Directory Roles DEV / Q9 / PROD
+To use it, please request MFA access again via the respective order form on behalf:
+
+* https://service-management.bosch.tech/sp?id=sc_cat_item&amp;sys_id=f8213b341b1d51d078087403dd4bcbbf&amp;requested_for=dra5mex
+
+For further access rights, please see how to transfer them yourself from your former admin identity.
+https://www.intranet.bosch.com/doku/oneIDM_TrainingArea/UC3/3-2_2/en/
+
+
+Mit freundlichen Grüßen / Best regards
+Bosch Identity Team
+BD/WPA-IAM1</div>
+        <div class="hint">💡 Must be sent to the User</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">ADU Creation 2</span>
+          <button class="copy-btn" data-target="c-t1-3">Copy</button>
+        </div>
+        <div class="tpl-subject">
+          <div class="subject-pill">
+            <span class="subject-label">Subject</span>
+            <div class="subject-divider"></div>
+            <span class="subject-text" id="s-t1-3">A new Admin Identity has been created</span>
+            <button class="copy-btn copy-btn-sm" data-target="s-t1-3">Copy</button>
+          </div>
+        </div>
+        <div class="tpl-body" id="c-t1-3">Dear Customer,
+
+A new secondary identity/ Admin User has been created for your employee.
+Please share below secret with her/ him as soon as possible.
+
+DisplayName: <span class="placeholder">DISPLAYNAME</span>
+Username: <span class="placeholder">USERNAME</span>
+Second part of the password: <span class="placeholder">PASSWORD</span>
+
+Thank you.
+
+Mit freundlichen Grüßen / Best regards
+Bosch Identity Team
+BD/WPA-IAM1</div>
+        <div class="hint">💡 Must be sent to the Line Manager</div>
+      </div>
+
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">EXU3 Creation</span>
+          <button class="copy-btn" data-target="c-t1-4">Copy</button>
+        </div>
+        <div class="tpl-body exu3-body" id="c-t1-4">
+          <div class="exu3-section-title">User Data</div>
+          <table class="exu3-table">
+            <tr>
+              <td class="exu3-key">Name</td>
+              <td class="exu3-val"><span class="placeholder">EXTERNAL Svensson Christian (Beckhoff AB, DC-HD/EDA)</span></td>
+            </tr>
+            <tr>
+              <td class="exu3-key">User-ID</td>
+              <td class="exu3-val"><span class="placeholder">SVH7MLL</span></td>
+            </tr>
+            <tr>
+              <td class="exu3-key">Password</td>
+              <td class="exu3-val"><span class="placeholder">jf6yuvdnSqeo</span></td>
+            </tr>
+          </table>
+
+          <div class="exu3-section-title" style="margin-top:18px;">New Bosch User</div>
+          <p class="exu3-p">Dear Customer,</p>
+          <p class="exu3-p">The new Bosch user (see user data at the top) has been configured.<br>
+          You already received a mail from the IT Service Portal for the initial password.<br>
+          Some basic IdM accounts / <strong>roles</strong> according the selected location have been already assigned.<br>
+          Please add additional rights via <a class="exu3-link" href="https://rb-uss.bosch.com" target="_blank">User Self Service</a> if needed.<br>
+          Please request additional services via the <a class="exu3-link" href="https://rb-servicecatalog.apps.intranet.bosch.com" target="_blank">IT Service Portal</a>.</p>
+
+          <div class="exu3-divider">············································································</div>
+          <p class="exu3-p"><strong>Data protection notice for freelancers etc. EN:</strong><br>
+          <a class="exu3-link" href="#">Data protection notice for freelancers etc. EN.pdf</a></p>
+          <p class="exu3-p"><strong>Datenschutzhinweise für freie MA u.a. DE:</strong><br>
+          <a class="exu3-link" href="#">Datenschutzhinweise für freie MA u.a._DE.pdf</a></p>
+          <p class="exu3-p">Both files also available on the following <a class="exu3-link" href="#">BGN page</a></p>
+          <div class="exu3-divider">············································································</div>
+
+          <p class="exu3-p">Best regards<br>Your Bosch Identity Team</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Password Reset -->
+    <div class="tab-section" id="t2">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">First Half Password</span>
+          <button class="copy-btn" data-target="c-t2-0">Copy</button>
+        </div>
+        <div class="tpl-subject">
+          <div class="subject-pill">
+            <span class="subject-label">Subject</span>
+            <span class="subject-divider"></span>
+            <span class="subject-text" id="s-t2-0">First half Password for user account - USERNAME</span>
+            <button class="copy-btn copy-btn-sm" data-target="s-t2-0">Copy</button>
+          </div>
+        </div>
+        <div class="tpl-body" id="c-t2-0">Hello,
+
+Please find the below mentioned first half password for the Bosch user account
+Username: <span class="placeholder">USERNAME@Bosch.com</span>
+
+First half password: <span class="placeholder">PASSWORD</span>
+
+Combine [first part][second part] without space between the two password parts for the login.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Second Half Password</span>
+          <button class="copy-btn" data-target="c-t2-1">Copy</button>
+        </div>
+        <div class="tpl-subject">
+          <div class="subject-pill">
+            <span class="subject-label">Subject</span>
+            <span class="subject-divider"></span>
+            <span class="subject-text" id="s-t2-1">Second half Password for user account - USERNAME</span>
+            <button class="copy-btn copy-btn-sm" data-target="s-t2-1">Copy</button>
+          </div>
+        </div>
+        <div class="tpl-body" id="c-t2-1">Hello,
+Please find the second half password for user, the first half of the password is shared to user
+Username: <span class="placeholder">USERNAME</span>
+2nd half Password: <span class="placeholder">PASSWORD</span>
+Combine [first part][second part] without space between the two password parts.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Password Reset Template</span>
+          <button class="copy-btn" data-target="c-t2-3">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t2-3">Hello,
+
+The Password has been reset and information is shared through Encrypted email.
+
+Note: Please login after 30 - 60 minutes.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+    </div>
+
+    <!-- Tab 3: User Updation -->
+    <div class="tab-section" id="t3">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Other Updations (Cost Center, Department, Name, etc.)</span>
+          <button class="copy-btn" data-target="c-t3-2">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t3-2">Hello,
+
+As requested, the user account has been updated. It will be replicated in 2 – 4 hours.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+    </div>
+
+    <!-- Tab 4: User Deletion -->
+    <div class="tab-section" id="t4">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Account Deletion</span>
+          <button class="copy-btn" data-target="c-t4-1">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t4-1">Hello,
+
+As requested, the user account has been deleted. It will be removed in 12 – 24 hours.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Troubleshooting -->
+    <div class="tab-section" id="t5">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">MFA Call Issue</span>
+          <button class="copy-btn" data-target="c-t5-1">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t5-1">Hello,
+
+The MFA call is a multifactor authentication call received by external users when they try to login after entering the credentials in the login page. External users have to answer the call and authenticate the login by pressing the # key on mobile.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Access Issue (Sorry, you don't have access)</span>
+          <button class="copy-btn" data-target="c-t5-4">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t5-4">Hello,
+
+The SharePoint site owner needs to add the external user to the SharePoint site.
+The user should enter the business reason and click "Send Request".
+Once it is approved by the SharePoint site owner, the user can access the SharePoint site.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">SharePoint Link Issue</span>
+          <button class="copy-btn" data-target="c-t5-5">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t5-5">Hello,
+
+You are using an internal SharePoint link.
+The external SharePoint link will be like https://sites.share.bosch.com.
+Please contact your Bosch partner and get the correct link.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Incorrect Username or Password</span>
+          <button class="copy-btn" data-target="c-t5-6">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t5-6">Hello,
+
+We have checked from our end — the password is working fine and the MFA call is triggering to the user.
+Please type the User ID as <span class="placeholder">USERID@bosch.com</span> and copy-paste the given password without spaces.
+Also, please clear the cookies and try to login to the SharePoint site.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+    </div>
+
+    <!-- Tab 6: Others -->
+    <div class="tab-section" id="t6">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Follow-up</span>
+          <button class="copy-btn" data-target="c-t6-1">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t6-1">Hello,
+
+Let us know whether the suggested solution helped you resolve the issue.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">No Feedback after 3 Follow-ups</span>
+          <button class="copy-btn" data-target="c-t6-2">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t6-2">Hello,
+
+As there is no feedback received from you, we presume the issue has been solved or change not necessary.
+Hence we are closing the ticket.
+
+If you have any issue still persisting, please reopen the ticket or raise new ticket.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">ITSP Order Link</span>
+          <button class="copy-btn" data-target="c-t6-4">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t6-4">Hello,
+
+Please raise a ticket in the IT Service Portal for password reset and user account creation.
+Please go through the link below:
+https://rb-servicecatalog.apps.intranet.bosch.com/RequestCenter/website/Grunt/application/offer.html?id=3297
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Bosch ID Provided by User</span>
+          <button class="copy-btn" data-target="c-t6-5">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t6-5">Hello,
+
+This is regarding Incident: <span class="placeholder">xxxxxxx</span>.
+As per your request for a new External SharePoint Account for "<span class="placeholder">xxxxx</span>", please be informed that it is not possible to create an external user account with the Bosch email ID "<span class="placeholder">xxxxxxx</span>".
+Please share an alternate email ID (external mail ID) for user creation.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Deletion Request — Other Domain Users</span>
+          <button class="copy-btn" data-target="c-t6-6">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t6-6">Hello Team,
+
+We are not authorised to delete this user — we have access only to ECU users.
+Please route this to the responsible team.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+    </div>
+
+    <!-- Tab 7: First Response -->
+    <div class="tab-section" id="t7">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">First Response Email</span>
+          <button class="copy-btn" data-target="c-t7-1">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t7-1">Hello,
+
+Thank you for reaching out to us. We've successfully received your request concerning your issue. Our team is now reviewing your submission and will get back to you with an update as soon as possible.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+    </div>
+
+    <!-- Tab 8: US Roles -->
+    <div class="tab-section" id="t8">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Access Right for New US Employees</span>
+          <button class="copy-btn" data-target="c-t8-1">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t8-1">Hello,
+
+For the new user account the required OneIDM roles has been requested.
+Hence we are closing the ticket.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- Tab 9: Quick Finds -->
+    <div class="tab-section" id="t9">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Meeting Required!</span>
+          <button class="copy-btn" data-target="c-t9-1">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t9-1">Hello,
+
+Kindly schedule a meeting with the external and send an invite to the below contact.
+
+NT ID - NDW2KOR
+Email - N.Sandeep@in.bosch.com
+
+Pre-meeting requisites: Must have new MFA OTP.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Ask to try to open</span>
+        </div>
+        <div class="tpl-body">
+          <a href="https://bosch.sharepoint.com/" target="_blank" style="color: var(--bosch-purple); text-decoration: underline; font-size: 13.5px;">https://bosch.sharepoint.com/</a>
+        </div>
+        <div class="hint">💡 Open link</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+</div><!-- /main-layout -->
+
+<!-- Footer -->
+<footer class="o-footer -minimal">
+  <div class="footer-inner">
+    <ul class="footer-links">
+      <li><a href="https://www.bosch.com/corporate-information/" target="_blank">Corporate Information</a></li>
+      <li><a href="https://www.bosch.com/legal-notice/" target="_blank">Legal Notice</a></li>
+      <li><a href="https://www.bosch.com/data-protection-notice/" target="_blank">Data Privacy</a></li>
+    </ul>
+    <div class="footer-copyright">&copy; Robert Bosch GmbH 2026, all rights reserved</div>
+  </div>
+  <div class="footer-creator">
+    <span class="footer-creator-inner">
+      <span class="footer-craft">crafted with</span>
+      <span class="footer-heart">&#10084;</span>
+      <span class="footer-craft">by</span>
+      <span class="footer-author">Sandeep N (SO/OPM212-IN)</span>
+    </span>
+  </div>
+</footer>
+
+<script>
+const titles = {
+  t1: ['User Creation', '3 templates'],
+  t2: ['Password Reset', '3 templates'],
+  t3: ['User Updation', '1 template'],
+  t4: ['User Deletion', '1 template'],
+  t5: ['Troubleshooting', '4 templates'],
+  t6: ['Others', '5 templates'],
+  t7: ['First Response', '1 template'],
+  t8: ['US Roles', '1 template'],
+  t9: ['Quick Finds', '2 templates'],
+};
+
+$('.nav-btn').on('click', function () {
+  const tab = $(this).data('tab');
+  $('.nav-btn').removeClass('active');
+  $(this).addClass('active');
+  $('.tab-section').removeClass('active');
+  $('#' + tab).addClass('active');
+  $('#panel-title').text(titles[tab][0]);
+  $('#panel-count').text(titles[tab][1]);
+});
+
+$('.copy-btn').on('click', function () {
+  const btn = $(this);
+  const targetId = btn.data('target');
+  const el = document.getElementById(targetId);
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.addClass('copied').text('Copied!');
+    setTimeout(() => btn.removeClass('copied').text('Copy'), 1800);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    btn.addClass('copied').text('Copied!');
+    setTimeout(() => btn.removeClass('copied').text('Copy'), 1800);
+  });
+});
+</script>
+</body>
+</html>
