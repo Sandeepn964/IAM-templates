@@ -523,6 +523,17 @@ footer {
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-links { flex-direction: column; gap: 0.75rem; }
 }
+
+/* ── Tab animation ── */
+.tab-section {
+  display: none;
+  animation: fadeSlideIn 0.18s ease;
+}
+.tab-section.active { display: block; }
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -553,8 +564,10 @@ footer {
 
 <!-- Page Header -->
 <div class="page-header">
-  <h1>Response Templates</h1>
-  <p>Select a category from the sidebar and click <strong>Copy</strong> to copy any template to clipboard.</p>
+  <div>
+    <h1>Response Templates</h1>
+    <p>Select a category from the sidebar and click <strong>Copy</strong> to copy any template to clipboard.</p>
+  </div>
 </div>
 
 <!-- Main Layout -->
@@ -563,11 +576,11 @@ footer {
   <!-- Sidebar -->
   <nav class="sidebar">
     <div class="sidebar-label">Categories</div>
-    <button class="nav-btn active" data-tab="t1"><span class="indicator"></span>User Creation</button>
-    <button class="nav-btn" data-tab="t7"><span class="indicator"></span>First Response</button>
+    <button class="nav-btn active" data-tab="t3"><span class="indicator"></span>User Updation</button>
     <button class="nav-btn" data-tab="t2"><span class="indicator"></span>Password Reset</button>
-    <button class="nav-btn" data-tab="t3"><span class="indicator"></span>User Updation</button>
+    <button class="nav-btn" data-tab="t1"><span class="indicator"></span>User Creation</button>
     <button class="nav-btn" data-tab="t4"><span class="indicator"></span>User Deletion</button>
+    <button class="nav-btn" data-tab="t7"><span class="indicator"></span>First Response</button>
     <button class="nav-btn" data-tab="t5"><span class="indicator"></span>Troubleshooting</button>
     <button class="nav-btn" data-tab="t6"><span class="indicator"></span>Others</button>
     <button class="nav-btn" data-tab="t8"><span class="indicator"></span>US Roles</button>
@@ -577,12 +590,12 @@ footer {
   <!-- Panel -->
   <div class="panel">
     <div class="panel-header">
-      <h2 id="panel-title">User Creation</h2>
-      <span class="panel-count" id="panel-count">3 templates</span>
+      <h2 id="panel-title">User Updation</h2>
+      <span class="panel-count" id="panel-count">1 template</span>
     </div>
 
     <!-- Tab 1: User Creation -->
-    <div class="tab-section active" id="t1">
+    <div class="tab-section" id="t1">
       <div class="tpl-card">
         <div class="tpl-card-head">
           <span class="tpl-name">ADU Creation</span>
@@ -656,53 +669,26 @@ Bosch Identity Team
 BD/WPA-IAM1</div>
         <div class="hint">💡 Must be sent to the Line Manager</div>
       </div>
-
-
-      <div class="tpl-card">
-        <div class="tpl-card-head">
-          <span class="tpl-name">EXU3 Creation</span>
-          <button class="copy-btn" data-target="c-t1-4">Copy</button>
-        </div>
-        <div class="tpl-body exu3-body" id="c-t1-4">
-          <div class="exu3-section-title">User Data</div>
-          <table class="exu3-table">
-            <tr>
-              <td class="exu3-key">Name</td>
-              <td class="exu3-val"><span class="placeholder">EXTERNAL Svensson Christian (Beckhoff AB, DC-HD/EDA)</span></td>
-            </tr>
-            <tr>
-              <td class="exu3-key">User-ID</td>
-              <td class="exu3-val"><span class="placeholder">SVH7MLL</span></td>
-            </tr>
-            <tr>
-              <td class="exu3-key">Password</td>
-              <td class="exu3-val"><span class="placeholder">jf6yuvdnSqeo</span></td>
-            </tr>
-          </table>
-
-          <div class="exu3-section-title" style="margin-top:18px;">New Bosch User</div>
-          <p class="exu3-p">Dear Customer,</p>
-          <p class="exu3-p">The new Bosch user (see user data at the top) has been configured.<br>
-          You already received a mail from the IT Service Portal for the initial password.<br>
-          Some basic IdM accounts / <strong>roles</strong> according the selected location have been already assigned.<br>
-          Please add additional rights via <a class="exu3-link" href="https://rb-uss.bosch.com" target="_blank">User Self Service</a> if needed.<br>
-          Please request additional services via the <a class="exu3-link" href="https://rb-servicecatalog.apps.intranet.bosch.com" target="_blank">IT Service Portal</a>.</p>
-
-          <div class="exu3-divider">············································································</div>
-          <p class="exu3-p"><strong>Data protection notice for freelancers etc. EN:</strong><br>
-          <a class="exu3-link" href="#">Data protection notice for freelancers etc. EN.pdf</a></p>
-          <p class="exu3-p"><strong>Datenschutzhinweise für freie MA u.a. DE:</strong><br>
-          <a class="exu3-link" href="#">Datenschutzhinweise für freie MA u.a._DE.pdf</a></p>
-          <p class="exu3-p">Both files also available on the following <a class="exu3-link" href="#">BGN page</a></p>
-          <div class="exu3-divider">············································································</div>
-
-          <p class="exu3-p">Best regards<br>Your Bosch Identity Team</p>
-        </div>
-      </div>
     </div>
 
     <!-- Tab 2: Password Reset -->
     <div class="tab-section" id="t2">
+      <div class="tpl-card">
+        <div class="tpl-card-head">
+          <span class="tpl-name">Password Reset Template</span>
+          <button class="copy-btn" data-target="c-t2-3">Copy</button>
+        </div>
+        <div class="tpl-body" id="c-t2-3">Hello,
+
+The Password has been reset and information is shared through Encrypted email.
+
+Note: Please login after 30 - 60 minutes.
+
+Thank you!
+Best Regards,
+Your Bosch Identity Team</div>
+      </div>
+
       <div class="tpl-card">
         <div class="tpl-card-head">
           <span class="tpl-name">First Half Password</span>
@@ -754,26 +740,10 @@ Best Regards,
 Your Bosch Identity Team</div>
       </div>
 
-      <div class="tpl-card">
-        <div class="tpl-card-head">
-          <span class="tpl-name">Password Reset Template</span>
-          <button class="copy-btn" data-target="c-t2-3">Copy</button>
-        </div>
-        <div class="tpl-body" id="c-t2-3">Hello,
-
-The Password has been reset and information is shared through Encrypted email.
-
-Note: Please login after 30 - 60 minutes.
-
-Thank you!
-Best Regards,
-Your Bosch Identity Team</div>
-      </div>
-
     </div>
 
     <!-- Tab 3: User Updation -->
-    <div class="tab-section" id="t3">
+    <div class="tab-section active" id="t3">
       <div class="tpl-card">
         <div class="tpl-card-head">
           <span class="tpl-name">Other Updations (Cost Center, Department, Name, etc.)</span>
@@ -1045,6 +1015,7 @@ Your Bosch Identity Team</div>
 </footer>
 
 <script>
+// ── Tab navigation ──
 const titles = {
   t1: ['User Creation', '3 templates'],
   t2: ['Password Reset', '3 templates'],
@@ -1067,13 +1038,16 @@ $('.nav-btn').on('click', function () {
   $('#panel-count').text(titles[tab][1]);
 });
 
+// ── Copy buttons ──
 $('.copy-btn').on('click', function () {
   const btn = $(this);
   const targetId = btn.data('target');
   const el = document.getElementById(targetId);
+  if (!el) return;
+  // Get plain text without HTML tags
   const text = el.innerText;
   navigator.clipboard.writeText(text).then(() => {
-    btn.addClass('copied').text('Copied!');
+    btn.addClass('copied').text('✓ Copied!');
     setTimeout(() => btn.removeClass('copied').text('Copy'), 1800);
   }).catch(() => {
     const range = document.createRange();
@@ -1082,7 +1056,7 @@ $('.copy-btn').on('click', function () {
     window.getSelection().addRange(range);
     document.execCommand('copy');
     window.getSelection().removeAllRanges();
-    btn.addClass('copied').text('Copied!');
+    btn.addClass('copied').text('✓ Copied!');
     setTimeout(() => btn.removeClass('copied').text('Copy'), 1800);
   });
 });
